@@ -61,9 +61,9 @@ InulaJS仓库地址：[https://gitee.com/inula-js](https://gitee.com/inula-js)
 ## 如何参与
 
 **参与贡献**
-欢迎您参与[贡献](https://wiki.huawei.com/domains/30751/wiki/49494/WIKI202307051464974)，我们鼓励开发者以各种方式参与文档反馈和贡献。
+欢迎您参与[贡献](https://gitee.com/inula-js/docs/blob/master/%E8%B4%A1%E7%8C%AE%E6%8C%87%E5%8D%97.md)，我们鼓励开发者以各种方式参与文档反馈和贡献。
 
-您可以对现有文档进行评价、简单更改、反馈文档质量问题、贡献您的原创内容，详细请参考[贡献文档](https://wiki.huawei.com/domains/30751/wiki/49494/WIKI202307051464974)。
+您可以对现有文档进行评价、简单更改、反馈文档质量问题、贡献您的原创内容，详细请参考[贡献文档](https://gitee.com/inula-js/docs/blob/master/%E8%B4%A1%E7%8C%AE%E6%8C%87%E5%8D%97.md)。
 
 ## 许可协议
 
