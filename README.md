@@ -51,7 +51,7 @@ lnulaJS-plugin是一套针对InulaJS的编译期插件，它支持代码优化�
 此仓库存放lnulaJS网站提供的设备开发、应用开发对应的开发者文档。
 
 [访问官网](https://www.inulajs.org/)
-[lnulaJS快速入门](https://wiki.huawei.com/domains/30751/wiki/49494/WIKI202307071479063)
+[lnulaJS快速入门](https://gitee.com/inula-js/docs/blob/master/%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.md)
 [lnulaJS深度指南](https://wiki.huawei.com/domains/30751/wiki/49494/WIKI202307041459419)
 
 ## 代码仓地址
