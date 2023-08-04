@@ -6,7 +6,7 @@ lnula（发音为：[ˈɪnjʊlə]）。InulaJS 是一款用于构建用户界面
 
 ## 技术架构
 
-![输入图片说明](75422bd5-2bfb-4605-86c0-54c1575bd8d5.png)
+![输入图片说明](https://gitee.com/inula-js/docs/raw/master/%E6%9E%B6%E6%9E%84%E5%9B%BE.png)
 
 ### 核心能力
 
