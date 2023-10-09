@@ -35,15 +35,6 @@ import {
 import { FlagUtils, ResetText, Clear, Update, DirectAddition } from '../vnode/VNodeFlags';
 import { mergeDefaultProps } from '../render/LazyComponent';
 import {
-  submitDomUpdate,
-  clearText,
-  appendChildElement,
-  insertDomBefore,
-  removeChildDom,
-  hideDom,
-  unHideDom,
-} from '../../dom/DOMOperator';
-import {
   callEffectRemove,
   callUseEffects,
   callUseLayoutEffectCreate,
@@ -53,6 +44,7 @@ import { handleSubmitError } from '../ErrorHandler';
 import { travelVNodeTree, clearVNode, isDomVNode, getSiblingDom } from '../vnode/VNodeUtils';
 import { shouldAutoFocus } from '../../dom/utils/Common';
 import { BELONG_CLASS_VNODE_KEY } from '../vnode/VNode';
+import hostConfig from '../../reconciler/hostConfig';
 
 function callComponentWillUnmount(vNode: VNode, instance: any) {
   try {
@@ -143,9 +135,9 @@ function hideOrUnhideAllChildren(vNode, isHidden) {
 
       if (node.tag === DomComponent || node.tag === DomText) {
         if (isHidden) {
-          hideDom(node.tag, instance);
+          hostConfig.hideDom(node.tag, instance);
         } else {
-          unHideDom(node.tag, instance, node.props);
+          hostConfig.unHideDom(node.tag, instance, node.props);
         }
       }
     },
@@ -227,7 +219,7 @@ function unmountDomComponents(vNode: VNode): void {
         unmountNestedVNodes(node);
 
         // 在所有子项都卸载后，删除dom树中的节点
-        removeChildDom(currentParent, node.realNode);
+        hostConfig.removeChildDom(currentParent, node.realNode);
       } else if (node.tag === DomPortal) {
         if (node.child !== null) {
           currentParent = node.realNode;
@@ -292,9 +284,9 @@ function unmountVNode(vNode: VNode): void {
 
 function insertDom(parent, realNode, beforeDom) {
   if (beforeDom) {
-    insertDomBefore(parent, realNode, beforeDom);
+    hostConfig.insertDomBefore(parent, realNode, beforeDom);
   } else {
-    appendChildElement(parent, realNode);
+    hostConfig.appendChildElement(parent, realNode);
   }
 }
 
@@ -330,7 +322,7 @@ function submitAddition(vNode: VNode): void {
 
   if ((parent!.flags & ResetText) === ResetText) {
     // 在insert之前先reset
-    clearText(parentDom);
+    hostConfig.clearText(parentDom);
     FlagUtils.removeFlag(parent!, ResetText);
   }
 
@@ -381,7 +373,7 @@ function submitClear(vNode: VNode): void {
   }
 
   // 在所有子项都卸载后，删除dom树中的节点
-  removeChildDom(parentDom, vNode.realNode);
+  hostConfig.removeChildDom(parentDom, vNode.realNode);
   const realNodeNext = getSiblingDom(vNode);
   insertDom(parentDom, cloneDom, realNodeNext);
   vNode.realNode = cloneDom;
@@ -416,7 +408,7 @@ function submitUpdate(vNode: VNode): void {
     }
     case DomComponent:
     case DomText: {
-      submitDomUpdate(vNode.tag, vNode);
+      hostConfig.submitDomUpdate(vNode.tag, vNode);
       break;
     }
     case SuspenseComponent: {
@@ -431,7 +423,7 @@ function submitUpdate(vNode: VNode): void {
 }
 
 function submitResetTextContent(vNode: VNode) {
-  clearText(vNode.realNode);
+  hostConfig.clearText(vNode.realNode);
 }
 
 export {

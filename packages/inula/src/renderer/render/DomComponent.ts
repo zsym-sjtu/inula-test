@@ -17,12 +17,13 @@ import type { VNode } from '../Types';
 import type { Props } from '../../dom/DOMOperator';
 
 import { getNamespaceCtx, setNamespaceCtx, resetNamespaceCtx } from '../ContextSaver';
-import { appendChildElement, newDom, initDomProps, getPropChangeList, isTextChild } from '../../dom/DOMOperator';
+import { getPropChangeList, isTextChild } from '../../dom/DOMOperator';
 import { FlagUtils } from '../vnode/VNodeFlags';
 import { markRef } from './BaseComponent';
 import { DomComponent, DomPortal, DomText } from '../vnode/VNodeTags';
 import { travelVNodeTree } from '../vnode/VNodeUtils';
 import { createChildrenByDiff } from '../diff/nodeDiffComparator';
+import hostConfig from '../../reconciler/hostConfig';
 
 function updateDom(processing: VNode, type: any, newProps: Props) {
   // 如果oldProps !== newProps，意味着存在更新，并且需要处理其相关的副作用
@@ -65,7 +66,7 @@ export function bubbleRender(processing: VNode) {
     const parentNamespace = getNamespaceCtx();
 
     // 创建dom
-    const dom = newDom(type, newProps, parentNamespace, processing);
+    const dom = hostConfig.newDom(type, newProps, parentNamespace, processing);
 
     // 把dom类型的子节点append到parent dom中
     const vNode = processing.child;
@@ -75,7 +76,7 @@ export function bubbleRender(processing: VNode) {
         vNode,
         node => {
           if (node.tag === DomComponent || node.tag === DomText) {
-            appendChildElement(dom, node.realNode);
+            hostConfig.appendChildElement(dom, node.realNode);
           }
         },
         node =>
@@ -88,7 +89,7 @@ export function bubbleRender(processing: VNode) {
 
     processing.realNode = dom;
 
-    if (initDomProps(dom, type, newProps)) {
+    if (hostConfig.initDomProps(dom, type, newProps)) {
       FlagUtils.markUpdate(processing);
     }
 

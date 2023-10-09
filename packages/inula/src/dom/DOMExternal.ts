@@ -22,7 +22,7 @@ import { listenSimulatedDelegatedEvents } from '../event/EventBinding';
 import { Callback } from '../renderer/Types';
 import { InulaNode } from '../types';
 
-function createRoot(children: any, container: Container, callback?: Callback) {
+export function createTreeRoot(children: any, container: Container, callback?: Callback) {
   // 清空容器
   let child = container.lastChild;
   while (child) {
@@ -56,7 +56,7 @@ function executeRender(children: any, container: Container, callback?: Callback)
   let treeRoot = container._treeRoot;
 
   if (!treeRoot) {
-    treeRoot = createRoot(children, container, callback);
+    treeRoot = createTreeRoot(children, container, callback);
   } else {
     // container被render过
     if (typeof callback === 'function') {

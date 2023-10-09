@@ -71,6 +71,7 @@ import {
 
 import { syncUpdates as flushSync } from './renderer/TreeBuilder';
 import { toRaw } from './inulax/proxy/ProxyHandler';
+import inulaReconciler from './reconciler';
 
 const Inula = {
   Children,
@@ -122,6 +123,7 @@ const Inula = {
   Profiler,
   StrictMode,
   Suspense,
+  inulaReconciler,
 };
 
 export const version = __VERSION__;
@@ -178,6 +180,7 @@ export {
   Profiler,
   StrictMode,
   Suspense,
+  inulaReconciler,
 };
 
 export * from './types';
