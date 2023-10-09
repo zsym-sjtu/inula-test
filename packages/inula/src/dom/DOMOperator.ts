@@ -21,12 +21,12 @@ import { NSS } from './utils/DomCreator';
 import { adjustStyleValue } from './DOMPropertiesHandler/StyleHandler';
 import type { VNode } from '../renderer/Types';
 import { setInitValue, getPropsWithoutValue, updateValue } from './valueHandler';
-import { compareProps, setDomProps } from './DOMPropertiesHandler/DOMPropertiesHandler';
 import { isNativeElement, validateProps } from './validators/ValidateProps';
 import { watchValueChange } from './valueHandler/ValueChangeHandler';
 import { DomComponent, DomText } from '../renderer/vnode/VNodeTags';
 import { updateCommonProp } from './DOMPropertiesHandler/UpdateCommonProp';
 import { getCurrentRoot } from '../renderer/RootStack';
+import hostConfig from '../reconciler/hostConfig';
 
 export type Props = Record<string, any> & {
   autoFocus?: boolean;
@@ -94,7 +94,7 @@ export function initDomProps(dom: Element, tagName: string, rawProps: Props): bo
 
   // 初始化DOM属性（不包括value，defaultValue）
   const isNativeTag = isNativeElement(tagName, props);
-  setDomProps(dom, props, isNativeTag, true);
+  hostConfig.setDomProps(dom, props, isNativeTag, true);
 
   if (tagName === 'input' || tagName === 'textarea') {
     // 增加监听value和checked的set、get方法
@@ -121,7 +121,7 @@ export function getPropChangeList(
   const oldProps: Record<string, any> = getPropsWithoutValue(type, dom, lastRawProps);
   const newProps: Record<string, any> = getPropsWithoutValue(type, dom, nextRawProps);
 
-  return compareProps(oldProps, newProps);
+  return hostConfig.compareProps(oldProps, newProps);
 }
 
 export function isTextChild(type: string, props: Props): boolean {
@@ -175,7 +175,7 @@ export function submitDomUpdate(tag: string, vNode: VNode) {
           updateCommonProp(element, 'checked', newProps.checked, true);
         }
         const isNativeTag = isNativeElement(type, newProps);
-        setDomProps(element, changeList, isNativeTag, false);
+        hostConfig.setDomProps(element, changeList, isNativeTag, false);
         updateValue(type, element, newProps);
       }
     }

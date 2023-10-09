@@ -16,8 +16,8 @@
 import type { VNode } from '../Types';
 
 import { throwIfTrue } from '../utils/throwIfTrue';
-import { newTextDom } from '../../dom/DOMOperator';
 import { FlagUtils } from '../vnode/VNodeFlags';
+import hostConfig from '../../reconciler/hostConfig';
 
 export function captureRender(): VNode | null {
   return null;
@@ -44,6 +44,6 @@ export function bubbleRender(processing: VNode) {
       );
     }
     // 获得对应节点
-    processing.realNode = newTextDom(newText, processing);
+    processing.realNode = hostConfig.newTextDom(newText, processing);
   }
 }
